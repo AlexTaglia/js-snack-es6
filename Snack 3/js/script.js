@@ -38,30 +38,38 @@ let maxFalliSubiti = 0;
 const tableOutput = document.querySelector('.table-output');
 
 for (let i = 0; i < arraySquadre.length; i++) {
-    // Assegno dei numeri random al punti e ai falli
+    // Assegno dei numeri random ai punti e ai falli
     arraySquadre[i].punti_fatti = getRandomNumber(0, 50);
     arraySquadre[i].falli_subiti = getRandomNumber(0, 100);
-    
+
     // destruttuo 
     const { nome, punti_fatti, falli_subiti } = arraySquadre[i];
-    
-    // 
-    if (falli_subiti > maxFalliSubiti){
+
+    // aggiorno le mie due variabili con il valore piu alto con la relativa squadra
+    if (falli_subiti > maxFalliSubiti) {
         team = arraySquadre[i];
         maxFalliSubiti = falli_subiti;
-    }  
+    }
 
+    // Stampo in forma tabellare
     tableOutput.innerHTML += `
     <ul>
-        <li>${nome}</li>
-        <li>${punti_fatti}</li>
-        <li>${falli_subiti}</li>
+    <li>${nome}</li>
+    <li>${punti_fatti}</li>
+    <li>${falli_subiti}</li>
     </ul>
     `
 }
 
+// Evidenzio la squadra che ha subito più falli
+const highLightedOutput = document.querySelectorAll('.table-output ul');
 
+for (let i = 0; i < arraySquadre.length; i++) {
+    if (maxFalliSubiti === arraySquadre[i].falli_subiti) {
+        highLightedOutput[i + 1].style.background = 'yellow';
+    }
+}
 
 console.log(arraySquadre);
-const {nome, falli_subiti} = team;
+const { nome, falli_subiti } = team;
 console.log(`La squadra con più falli subiti è ${nome} con ${falli_subiti} falli subiti`)
